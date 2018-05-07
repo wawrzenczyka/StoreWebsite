@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopWebsite.Models;
 using ShopWebsite.Services;
@@ -51,12 +52,14 @@ namespace ShopWebsite.Controllers
             }
         }
 
+        [Authorize(Policy = "Management")]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var product = await productService.GetProductAsync(Id);
             return View(product);
         }
 
+        [Authorize(Policy = "Management")]
         [ValidateAntiForgeryToken]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(Guid Id)
@@ -76,12 +79,14 @@ namespace ShopWebsite.Controllers
             }
         }
 
+        [Authorize(Policy = "Management")]
         public async Task<IActionResult> Edit(Guid Id)
         {
             var product = await productService.GetProductAsync(Id);
             return View(product);
         }
 
+        [Authorize(Policy = "Management")]
         [ValidateAntiForgeryToken]
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> EditConfirmed(Product product)

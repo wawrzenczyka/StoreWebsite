@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopWebsite.Data;
 using ShopWebsite.Models;
@@ -11,6 +12,9 @@ namespace ShopWebsite.Services
     public class ProductService : IProductService
     {
         ApplicationDbContext context;
+
+        public object ViewBag { get; private set; }
+
         public ProductService(ApplicationDbContext _context)
         {
             context = _context;

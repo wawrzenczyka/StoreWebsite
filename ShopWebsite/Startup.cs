@@ -35,6 +35,20 @@ namespace ShopWebsite
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireRole(Constants.AdministratorRole);
+                });
+                options.AddPolicy("Management", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireRole(Constants.EmployeeRole, Constants.AdministratorRole);
+                });
+            });
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 

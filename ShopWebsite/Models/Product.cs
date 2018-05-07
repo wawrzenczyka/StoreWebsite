@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace ShopWebsite.Models
         [Required]
         public decimal Price { get; set; }
         public string Description { get; set; }
-
+        
         public virtual ICollection<OrderContents> OrderContents { get; set; }
     }
 }
