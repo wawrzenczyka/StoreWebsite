@@ -11,16 +11,16 @@ namespace ShopWebsite.Controllers
 {
     public class ProductsController : Controller
     {
-        IProductService productService;
+        IProductService _productService;
 
-        public ProductsController(IProductService _productService)
+        public ProductsController(IProductService productService)
         {
-            productService = _productService;
+            _productService = productService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var products = await productService.GetAllProductsAsync();
+            var products = await _productService.GetAllProductsAsync();
 
             var model = new ProductViewModel()
             {
@@ -30,18 +30,20 @@ namespace ShopWebsite.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = "Management")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Policy = "Management")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                bool result = await productService.AddProductAsync(product);
+                bool result = await _productService.AddProductAsync(product);
                 if (!result)
                     return BadRequest(new { error = "Could not add item" });
                 return RedirectToAction("Index");
@@ -55,7 +57,7 @@ namespace ShopWebsite.Controllers
         [Authorize(Policy = "Management")]
         public async Task<IActionResult> Delete(Guid Id)
         {
-            var product = await productService.GetProductAsync(Id);
+            var product = await _productService.GetProductAsync(Id);
             return View(product);
         }
 
@@ -64,11 +66,11 @@ namespace ShopWebsite.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(Guid Id)
         {
-            var product = await productService.GetProductAsync(Id);
+            var product = await _productService.GetProductAsync(Id);
 
             if (ModelState.IsValid)
             {
-                bool result = await productService.RemoveProductAsync(product);
+                bool result = await _productService.RemoveProductAsync(product);
                 if (!result)
                     return BadRequest(new { error = "Could not add item" });
                 return RedirectToAction("Index");
@@ -82,7 +84,7 @@ namespace ShopWebsite.Controllers
         [Authorize(Policy = "Management")]
         public async Task<IActionResult> Edit(Guid Id)
         {
-            var product = await productService.GetProductAsync(Id);
+            var product = await _productService.GetProductAsync(Id);
             return View(product);
         }
 
@@ -93,7 +95,7 @@ namespace ShopWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool result = await productService.EditProductAsync(product);
+                bool result = await _productService.EditProductAsync(product);
                 if (!result)
                     return BadRequest(new { error = "Could not add item" });
                 return RedirectToAction("Index");
@@ -106,7 +108,7 @@ namespace ShopWebsite.Controllers
 
         public async Task<IActionResult> Details(Guid Id)
         {
-            var product = await productService.GetProductAsync(Id);
+            var product = await _productService.GetProductAsync(Id);
             return View(product);
         }
     }

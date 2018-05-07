@@ -11,23 +11,23 @@ namespace ShopWebsite.Services
 {
     public class ProductService : IProductService
     {
-        ApplicationDbContext context;
+        ApplicationDbContext _context;
 
         public object ViewBag { get; private set; }
 
-        public ProductService(ApplicationDbContext _context)
+        public ProductService(ApplicationDbContext context)
         {
-            context = _context;
+            _context = context;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            return await context.Products.ToArrayAsync();
+            return await _context.Products.ToArrayAsync();
         }
 
         public async Task<Product> GetProductAsync(Guid Id)
         {
-            return await context.Products.FirstAsync(p => p.Id == Id);
+            return await _context.Products.FirstAsync(p => p.Id == Id);
         }
 
         public async Task<bool> AddProductAsync(Product newProduct)
@@ -41,30 +41,30 @@ namespace ShopWebsite.Services
                 Description = newProduct.Description
             };
 
-            context.Add(product);
+            _context.Add(product);
 
-            var saveResult = await context.SaveChangesAsync();
+            var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;
         }
 
         public async Task<bool> RemoveProductAsync(Product product)
         {
-            context.Remove(product);
+            _context.Remove(product);
 
-            var saveResult = await context.SaveChangesAsync();
+            var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;
         }
 
         public async Task<bool> EditProductAsync(Product product)
         {
-            var modifiedProduct = await context.Products.FirstAsync(p => p.Id == product.Id);
+            var modifiedProduct = await _context.Products.FirstAsync(p => p.Id == product.Id);
 
             modifiedProduct.Name = product.Name;
             modifiedProduct.Price = product.Price;
             modifiedProduct.Description = product.Description;
             modifiedProduct.Type = product.Type;
 
-            var saveResult = await context.SaveChangesAsync();
+            var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;
         }
     }
