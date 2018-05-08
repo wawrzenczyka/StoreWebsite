@@ -45,7 +45,7 @@ namespace ShopWebsite
     UserManager<ApplicationUser> userManager)
         {
             var testAdmin = await userManager.Users
-                .Where(x => x.UserName == "admin@sw.local")
+                .Where(x => x.UserName == "admin@todo.local")
                 .SingleOrDefaultAsync();
 
             if (testAdmin != null) return;

@@ -19,7 +19,7 @@ namespace ShopWebsite.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<OrderContents>().HasKey(oc => new { oc.ProductId, oc.OrderId });
+            builder.Entity<OrderDetails>().HasKey(oc => new { oc.ProductId, oc.OrderId });
                 
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
@@ -27,7 +27,8 @@ namespace ShopWebsite.Data
         }
 
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderContents> OrderContents { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }

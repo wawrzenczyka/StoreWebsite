@@ -1,42 +1,21 @@
-﻿@model ShopWebsite.Models.Product
-
-@{
-    ViewData["Title"] = "Details";
+﻿@{
+    ViewData["Title"] = "Order";
 }
 
 <h2></h2>
 
-<div>
-    <h4>You want to order:</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-</div>
+@await Component.InvokeAsync("ItemDetails", new { Id = Model.Id })
+@await Component.InvokeAsync("OrderForm", new { Id = Model.Id })
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+@*
+    <div>
+        <form asp-action="ConfirmOrder">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Confirm" class="btn btn-default" /> |
+            <a asp-action="Index" asp-controller="Products">Back to product list</a>
+        </form>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

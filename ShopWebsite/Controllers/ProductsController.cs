@@ -22,7 +22,7 @@ namespace ShopWebsite.Controllers
         {
             var products = await _productService.GetAllProductsAsync();
 
-            var model = new ProductViewModel()
+            var model = new ProductListViewModel()
             {
                 Products = products
             };

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ShopWebsite.Models
 {
-    public class ProductViewModel
+    public class ProductListViewModel
     {
         public IEnumerable<Product> Products { get; set; }
     }

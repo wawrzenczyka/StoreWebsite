@@ -13,8 +13,6 @@ namespace ShopWebsite.Services
     {
         ApplicationDbContext _context;
 
-        public object ViewBag { get; private set; }
-
         public ProductService(ApplicationDbContext context)
         {
             _context = context;

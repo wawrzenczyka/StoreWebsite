@@ -18,6 +18,7 @@ namespace ShopWebsite.Models
         public decimal Price { get; set; }
         public string Description { get; set; }
         
-        public virtual ICollection<OrderContents> OrderContents { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual ICollection<CartItem> CartItems { get; set; }
     }
 }

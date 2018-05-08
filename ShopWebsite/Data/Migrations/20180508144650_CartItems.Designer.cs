@@ -3,15 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ShopWebsite.Data;
 using System;
 
 namespace ShopWebsite.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180508144650_CartItems")]
+    partial class CartItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +189,8 @@ namespace ShopWebsite.Data.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -200,8 +204,6 @@ namespace ShopWebsite.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("UserId");
-
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
@@ -214,6 +216,9 @@ namespace ShopWebsite.Data.Migrations
                     b.Property<Guid>("OrderId");
 
                     b.Property<int>("Quantity");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("ProductId", "OrderId");
 
