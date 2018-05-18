@@ -3,13 +3,13 @@
 @inject IAuthorizationService AuthorizationService
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
 @{
     var authorizationResult = AuthorizationService.AuthorizeAsync(User, "Management");
 }
-<h2>Index</h2>
+<h2>Our products</h2>
 
 <table class="table">
     <thead>
@@ -59,7 +59,7 @@
                         </span>
                     }
                     <span>
-                        <a asp-action="Order" asp-controller="Orders" asp-route-id="@item.Id">Order</a>
+                        <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id">Order</a>
                     </span>
                 </td>
             </tr>

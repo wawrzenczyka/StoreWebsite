@@ -1,0 +1,83 @@
+﻿@model CartViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+
+@{
+    ViewData["Title"] = "Cart";
+}
+<script>
+    function EditQuantity(id, quantity) {
+        $.ajax({
+            url: 'Cart/Update',
+            data: { Id: id, Quantity: quantity }
+        }).done(function () {
+            alert('Added');
+        });
+    }
+</script>
+
+<h2>Cart</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CartItems.First().Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartItems.First().Product.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartItems.First().CartItem.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartItems.First().TotalValue)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)$
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CartItem.Quantity) |
+                    <a asp-action="Edit" asp-route-id="@item.CartItem.Id">Edit</a>
+                    @*<a onclick="EditQuantity('12', 'quantity');" class="button"><span>Add to Cart</span></a>*@
+
+                    @*<a asp-action="Update" asp-route-id="@item.CartItem.Id" asp-route-quantity="@a.Value">Update</a>*@
+
+                    @*<input asp-for="CartItems.First().CartItem.Quantity />*@
+                    @*@Html.DisplayFor(modelItem => item.CartItem.Quantity)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalValue)$
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.CartItem.Id">Product details</a> |
+                    <a asp-action="Remove" asp-route-id="@item.CartItem.Id">Remove from cart</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <h4>Total value:</h4>
+            </td>
+            <td />
+            <td />
+            <td>
+                <h4> @Html.DisplayFor(model => model.TotalCartValue)$</h4>
+            </td>
+            <td />
+        </tr>
+    </tfoot>
+</table>
+
+<input type="button" value="Checkout" class="btn btn-default" onclick="window.location='@Url.Action("Add", "Orders")'" />

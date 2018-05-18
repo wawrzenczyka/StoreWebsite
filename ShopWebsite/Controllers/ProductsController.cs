@@ -11,7 +11,7 @@ namespace ShopWebsite.Controllers
 {
     public class ProductsController : Controller
     {
-        IProductService _productService;
+        readonly IProductService _productService;
 
         public ProductsController(IProductService productService)
         {

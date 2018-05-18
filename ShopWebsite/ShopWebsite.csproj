@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <CodeAnalysisRuleSet>my.ruleset</CodeAnalysisRuleSet>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-ShopWebsite-880F54BE-1D84-4C30-B61D-624555E44C19</UserSecretsId>
   </PropertyGroup>

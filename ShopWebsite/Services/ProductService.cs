@@ -11,7 +11,7 @@ namespace ShopWebsite.Services
 {
     public class ProductService : IProductService
     {
-        ApplicationDbContext _context;
+        readonly ApplicationDbContext _context;
 
         public ProductService(ApplicationDbContext context)
         {
@@ -23,9 +23,9 @@ namespace ShopWebsite.Services
             return await _context.Products.ToArrayAsync();
         }
 
-        public async Task<Product> GetProductAsync(Guid Id)
+        public Task<Product> GetProductAsync(Guid Id)
         {
-            return await _context.Products.FirstAsync(p => p.Id == Id);
+            return _context.Products.FirstAsync(p => p.Id == Id);
         }
 
         public async Task<bool> AddProductAsync(Product newProduct)
@@ -63,7 +63,7 @@ namespace ShopWebsite.Services
             modifiedProduct.Type = product.Type;
 
             var saveResult = await _context.SaveChangesAsync();
-            return saveResult == 1;
+            return saveResult == 1 || saveResult == 1;
         }
     }
 }
