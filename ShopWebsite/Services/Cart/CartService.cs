@@ -36,41 +36,24 @@ namespace ShopWebsite.Services
             return saveResult == 1;
         }
 
-        public async Task<IEnumerable<CartItemViewModel>> GetCartAsync(Guid userId)
+        public async Task<IEnumerable<CartItem>> GetCartAsync(Guid userId)
         {
-            var userItems = _context.CartItems.Where(item => item.UserId == userId);
-
-            var result = from item in userItems
-                         join product in _context.Products on item.ProductId equals product.Id
-                         select new CartItemViewModel()
-                         {
-                             CartItem = item,
-                             Product = product,
-                             TotalValue = item.Quantity * product.Price
-                         };
-
-            return await result.ToArrayAsync();
+            return await _context.CartItems
+                .Where(item => item.UserId == userId)
+                .Include(item => item.Product)
+                .ToArrayAsync();
         }
 
-        public async Task<CartItemViewModel> GetCartItemAsync(Guid cartItemId)
+        public Task<CartItem> GetCartItemAsync(Guid cartItemId)
         {
-            var cartItem = await _context.CartItems
+            return _context.CartItems
+                .Include(item => item.Product)
                 .FirstAsync(item => item.Id == cartItemId);
-
-            var product = await _context.Products
-                .FirstAsync(p => cartItem.ProductId == p.Id);
-
-            return new CartItemViewModel()
-            {
-                CartItem = cartItem,
-                Product = product,
-                TotalValue = cartItem.Quantity * product.Price
-            };
         }
 
-        public async Task<bool> RemoveCartItem(CartItemViewModel cartItemViewModel)
+        public async Task<bool> RemoveCartItem(CartItem cartItem)
         {
-            _context.CartItems.Remove(cartItemViewModel.CartItem);
+            _context.CartItems.Remove(cartItem);
 
             var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;

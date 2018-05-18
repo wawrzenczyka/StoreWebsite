@@ -27,10 +27,10 @@
                 @Html.DisplayNameFor(model => model.CartItems.First().Product.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CartItems.First().CartItem.Quantity)
+                @Html.DisplayNameFor(model => model.CartItems.First().Quantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CartItems.First().TotalValue)
+                @Html.DisplayNameFor(model => model.CartItems.First().TotalPrice)
             </th>
             <th>Actions</th>
         </tr>
@@ -46,21 +46,15 @@
                     @Html.DisplayFor(modelItem => item.Product.Price)$
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CartItem.Quantity) |
-                    <a asp-action="Edit" asp-route-id="@item.CartItem.Id">Edit</a>
-                    @*<a onclick="EditQuantity('12', 'quantity');" class="button"><span>Add to Cart</span></a>*@
-
-                    @*<a asp-action="Update" asp-route-id="@item.CartItem.Id" asp-route-quantity="@a.Value">Update</a>*@
-
-                    @*<input asp-for="CartItems.First().CartItem.Quantity />*@
-                    @*@Html.DisplayFor(modelItem => item.CartItem.Quantity)*@
+                    @Html.DisplayFor(modelItem => item.Quantity) |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalValue)$
+                    @Html.DisplayFor(modelItem => item.TotalPrice)$
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.CartItem.Id">Product details</a> |
-                    <a asp-action="Remove" asp-route-id="@item.CartItem.Id">Remove from cart</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Product details</a> |
+                    <a asp-action="Remove" asp-route-id="@item.Id">Remove from cart</a>
                 </td>
             </tr>
         }
@@ -73,7 +67,7 @@
             <td />
             <td />
             <td>
-                <h4> @Html.DisplayFor(model => model.TotalCartValue)$</h4>
+                <h4> @Html.DisplayFor(model => model.TotalValue)$</h4>
             </td>
             <td />
         </tr>

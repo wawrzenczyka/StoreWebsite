@@ -14,6 +14,14 @@ namespace ShopWebsite.Models
         public Guid ProductId { get; set; }
         public virtual Product Product { get; set; }
 
+        public decimal TotalPrice
+        {
+            get
+            {
+                return Product.Price * Quantity;
+            }
+        }
+
         [Required]
         public Guid UserId { get; set; }
         [Range(1, int.MaxValue)]

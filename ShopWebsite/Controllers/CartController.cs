@@ -34,8 +34,7 @@ namespace ShopWebsite.Controllers
 
             var model = new CartViewModel()
             {
-                CartItems = cartItems,
-                TotalCartValue = cartItems.Sum(item => item.TotalValue)
+                CartItems = cartItems
             };
 
             return View(model);
@@ -78,12 +77,12 @@ namespace ShopWebsite.Controllers
 
         public async Task<IActionResult> Remove(Guid Id)
         {
-            var cartItem = await _cartService.GetCartItemAsync(Id);
+            var cartItemViewModel = await _cartService.GetCartItemAsync(Id);
 
-            bool validationResult = TryValidateModel(cartItem);
+            bool validationResult = TryValidateModel(cartItemViewModel);
             if (validationResult)
             {
-                bool result = await _cartService.RemoveCartItem(cartItem);
+                bool result = await _cartService.RemoveCartItem(cartItemViewModel);
                 if (!result)
                     return BadRequest(new { error = "Could not remove item" });
             }
@@ -118,16 +117,16 @@ namespace ShopWebsite.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, ActionName("Edit")]
-        public Task<IActionResult> EditConfirmed(CartItemViewModel item)
+        public Task<IActionResult> EditConfirmed(CartItem item)
         {
-            return Update(item.CartItem);
+            return Update(item);
         }
 
         public async Task<IActionResult> Details(Guid Id)
         {
-            var cartItem = await _cartService.GetCartItemAsync(Id);
+            var cartItemViewModel = await _cartService.GetCartItemAsync(Id);
 
-            return RedirectToAction("Details", "Products", new { cartItem.Product.Id });
+            return RedirectToAction("Details", "Products", new { cartItemViewModel.Product.Id });
         }
     }
 }

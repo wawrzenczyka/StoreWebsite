@@ -1,4 +1,4 @@
-﻿@model ShopWebsite.Models.CartItemViewModel
+﻿@model ShopWebsite.Models.CartItem
 
 @{
     ViewData["Title"] = "Edit";
@@ -9,7 +9,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CartItem.Id" />
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 @Html.LabelFor(model => model.Product.Name)
                 <h4>@Html.DisplayFor(model => model.Product.Name)</h4>
@@ -19,9 +19,9 @@
                 <h4> @Html.DisplayFor(model => model.Product.Price)$</h4>
             </div>
             <div class="form-group">
-                <label asp-for="CartItem.Quantity" class="control-label"></label>
-                <input asp-for="CartItem.Quantity" class="form-control" value="@Model.CartItem.Quantity" />
-                <span asp-validation-for="CartItem.Quantity" class="text-danger"></span>
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" value="@Model.Quantity" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
