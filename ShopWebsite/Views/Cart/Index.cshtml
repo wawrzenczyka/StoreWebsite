@@ -1,25 +1,14 @@
 ﻿@model CartViewModel
-@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
 
 @{
     ViewData["Title"] = "Cart";
 }
-<script>
-    function EditQuantity(id, quantity) {
-        $.ajax({
-            url: 'Cart/Update',
-            data: { Id: id, Quantity: quantity }
-        }).done(function () {
-            alert('Added');
-        });
-    }
-</script>
 
 <h2>Cart</h2>
-<br />
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.CartItems.First().Product.Name)
             </th>
@@ -39,6 +28,13 @@
         @foreach (var item in Model.CartItems)
         {
             <tr>
+                <td>
+                    @{
+                        var base64 = Convert.ToBase64String(item.Product.Image.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+                    <img src="@imgSrc" height="100" />
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.Name)
                 </td>
@@ -61,11 +57,12 @@
     </tbody>
     <tfoot>
         <tr>
+            <td />
+            <td />
+            <td />
             <td>
                 <h4>Total value:</h4>
             </td>
-            <td />
-            <td />
             <td>
                 <h4> @Html.DisplayFor(model => model.TotalValue)$</h4>
             </td>

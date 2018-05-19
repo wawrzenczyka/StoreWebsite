@@ -41,6 +41,7 @@ namespace ShopWebsite.Services
             return await _context.CartItems
                 .Where(item => item.UserId == userId)
                 .Include(item => item.Product)
+                .ThenInclude(product => product.Image)
                 .ToArrayAsync();
         }
 

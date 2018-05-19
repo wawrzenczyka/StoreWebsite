@@ -1,41 +1,26 @@
 ﻿@model ShopWebsite.Models.Product
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Product details</h2>
+@{
+    var authorizationResult = AuthorizationService.AuthorizeAsync(User, "Management");
+}
 
+<h2>Product details</h2>
+@await Component.InvokeAsync("ProductInfo", new { product = Model })
+<br />
+<br />
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)$
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id">Order</a> |
+    @if ((await authorizationResult).Succeeded)
+    {
+        <span>
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        </span>
+    }
     <a asp-action="Index">Back to List</a>
 </div>

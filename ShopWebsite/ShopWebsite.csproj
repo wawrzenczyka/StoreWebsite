@@ -15,6 +15,10 @@
     <Compile Remove="Data\Migrations\20180501172828_ProductTypesMagic.Designer.cs" />
     <Compile Remove="Data\Migrations\20180508164158_CartItemsTotalPrice.cs" />
     <Compile Remove="Data\Migrations\20180508164158_CartItemsTotalPrice.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180518190126_Image.cs" />
+    <Compile Remove="Data\Migrations\20180518190126_Image.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180518224108_SwappedAttributes.cs" />
+    <Compile Remove="Data\Migrations\20180518224108_SwappedAttributes.Designer.cs" />
   </ItemGroup>
 
 

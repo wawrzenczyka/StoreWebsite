@@ -18,12 +18,13 @@ namespace ShopWebsite.Models
         {
             get
             {
-                return Product.Price * Quantity;
+                return Product != null ? Product.Price * Quantity : 0;
             }
         }
 
         [Required]
         public Guid UserId { get; set; }
+        [Required]
         [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
     }

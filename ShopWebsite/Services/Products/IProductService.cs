@@ -13,5 +13,6 @@ namespace ShopWebsite.Services
         Task<bool> AddProductAsync(Product newProduct);
         Task<bool> RemoveProductAsync(Product product);
         Task<bool> EditProductAsync(Product product);
+        Task<bool> EditProductImageAsync(Product product);
     }
 }

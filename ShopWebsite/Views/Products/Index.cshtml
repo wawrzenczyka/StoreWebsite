@@ -9,11 +9,13 @@
 @{
     var authorizationResult = AuthorizationService.AuthorizeAsync(User, "Management");
 }
+
 <h2>Our products</h2>
 
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Products.First().Name)
             </th>
@@ -24,8 +26,8 @@
                 @Html.DisplayNameFor(model => model.Products.First().Price)
             </th>
             @*<th>
-                        @Html.DisplayNameFor(model => model.Products.First().Description)
-                </th>*@
+                @Html.DisplayNameFor(model => model.Products.First().Description)
+        </th>*@
             <th>Actions</th>
         </tr>
     </thead>
@@ -33,6 +35,13 @@
         @foreach (var item in Model.Products)
         {
             <tr>
+                <td>
+                    @{
+                        var base64 = Convert.ToBase64String(item.Image.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+                    <img src="@imgSrc" height="100" />
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -43,20 +52,23 @@
                     @Html.DisplayFor(modelItem => item.Price)$
                 </td>
                 <td>
-                    @if ((await authorizationResult).Succeeded)
-                    {
-                        <span>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        </span>
-                    }
                     <span>
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     </span>
                     @if ((await authorizationResult).Succeeded)
                     {
-                        <span>
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                        </span>
+                    <span>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit product info</a> |
+                    </span>
+                    <span>
+                        <a asp-action="EditImage" asp-route-id="@item.Id">Change image</a> |
+                    </span>
+                    }
+                    @if ((await authorizationResult).Succeeded)
+                    {
+                    <span>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    </span>
                     }
                     <span>
                         <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id">Order</a>

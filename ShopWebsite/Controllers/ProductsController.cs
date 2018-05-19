@@ -106,6 +106,24 @@ namespace ShopWebsite.Controllers
             }
         }
 
+        [Authorize(Policy = "Management")]
+        public async Task<IActionResult> EditImage(Guid Id)
+        {
+            var product = await _productService.GetProductAsync(Id);
+            return View(product);
+        }
+
+        [Authorize(Policy = "Management")]
+        [ValidateAntiForgeryToken]
+        [HttpPost, ActionName("EditImage")]
+        public async Task<IActionResult> EditImageConfirmed(Product product)
+        {
+            bool result = await _productService.EditProductImageAsync(product);
+            if (!result)
+                return BadRequest(new { error = "Could not edit image" });
+            return RedirectToAction("Index");
+        }
+
         public async Task<IActionResult> Details(Guid Id)
         {
             var product = await _productService.GetProductAsync(Id);
