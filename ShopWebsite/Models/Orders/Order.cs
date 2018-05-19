@@ -16,14 +16,12 @@ namespace ShopWebsite.Models
 
         [Required]
         public DateTime OrderDate { get; set; }
-        [Required]
-        public DateTime OrderShippedDate { get; set; }
+        public DateTime? OrderShippedDate { get; set; }
 
         [Required]
         public Guid AddressId { get; set; }
         public virtual Address Address { get; set; }
 
-        [Required]
         public OrderStatus StatusCode { get; set; }
         public string OrderStatus
         {

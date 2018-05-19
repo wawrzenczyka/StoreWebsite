@@ -47,7 +47,7 @@ namespace ShopWebsite.Controllers
 
             string ext = Path.GetExtension(product.ImageFile.FileName).ToLower();
 
-            if (ext != ".jpg" && ext != ".tiff" && ext != ".gif" && ext != ".jpeg" && ext != ".png" & ext != ".bmp")
+            if (ext != ".jpg" && ext != ".tiff" && ext != ".gif" && ext != ".jpeg" && ext != ".png" && ext != ".bmp")
                 return BadRequest(new { error = "Invalid image format" });
 
             if (ModelState.IsValid)
@@ -132,7 +132,7 @@ namespace ShopWebsite.Controllers
 
             string ext = Path.GetExtension(product.ImageFile.FileName).ToLower();
 
-            if (ext != ".jpg" && ext != ".tiff" && ext != ".gif" && ext != ".jpeg" && ext != ".png" & ext != ".bmp")
+            if (ext != ".jpg" && ext != ".tiff" && ext != ".gif" && ext != ".jpeg" && ext != ".png" && ext != ".bmp")
                 return BadRequest(new { error = "Invalid image format" });
 
             bool result = await _productService.EditProductImageAsync(product);

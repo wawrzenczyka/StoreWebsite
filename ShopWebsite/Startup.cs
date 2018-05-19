@@ -13,6 +13,7 @@ using ShopWebsite.Models;
 using ShopWebsite.Services;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using ShopWebsite.Services.Users;
 
 namespace ShopWebsite
 {
@@ -55,6 +56,8 @@ namespace ShopWebsite
             services.AddMvc();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

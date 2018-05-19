@@ -12,9 +12,10 @@ using System;
 namespace ShopWebsite.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180519202250_NamingCorrection")]
+    partial class NamingCorrection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,7 +247,7 @@ namespace ShopWebsite.Data.Migrations
 
                     b.Property<DateTime>("OrderDate");
 
-                    b.Property<DateTime?>("OrderShippedDate");
+                    b.Property<DateTime>("OrderShippedDate");
 
                     b.Property<int>("StatusCode");
 

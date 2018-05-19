@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace ShopWebsite.Services
 {
-    public class OrderService
+    public class OrderService: IOrderService
     {
+
     }
 }
