@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace ShopWebsite.Services
         {
             return await _context.Products
                 .Include(product => product.Image)
+                .OrderBy(product => product.Name)
                 .ToArrayAsync();
         }
 
@@ -48,7 +50,7 @@ namespace ShopWebsite.Services
             {
                 Id = Guid.NewGuid(),
                 Name = newProduct.Name,
-                Type = newProduct.Type,
+                TypeCode = newProduct.TypeCode,
                 Price = newProduct.Price,
                 Description = newProduct.Description,
                 Image = image
@@ -68,7 +70,7 @@ namespace ShopWebsite.Services
             _context.Remove(product);
 
             var saveResult = await _context.SaveChangesAsync();
-            return saveResult == 1;
+            return saveResult == 2;
         }
 
         public async Task<bool> EditProductAsync(Product product)
@@ -78,7 +80,7 @@ namespace ShopWebsite.Services
             modifiedProduct.Name = product.Name;
             modifiedProduct.Price = product.Price;
             modifiedProduct.Description = product.Description;
-            modifiedProduct.Type = product.Type;
+            modifiedProduct.TypeCode = product.TypeCode;
 
             var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;

@@ -25,9 +25,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Products.First().Price)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Products.First().Description)
-        </th>*@
             <th>Actions</th>
         </tr>
     </thead>
@@ -57,18 +54,18 @@
                     </span>
                     @if ((await authorizationResult).Succeeded)
                     {
-                    <span>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit product info</a> |
-                    </span>
-                    <span>
-                        <a asp-action="EditImage" asp-route-id="@item.Id">Change image</a> |
-                    </span>
+                        <span>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit product info</a> |
+                        </span>
+                        <span>
+                            <a asp-action="EditImage" asp-route-id="@item.Id">Change image</a> |
+                        </span>
                     }
                     @if ((await authorizationResult).Succeeded)
                     {
-                    <span>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                    </span>
+                        <span>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                        </span>
                     }
                     <span>
                         <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id">Order</a>

@@ -12,9 +12,10 @@ using System;
 namespace ShopWebsite.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180519155142_OrdersDbUpdate")]
+    partial class OrdersDbUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,7 +287,8 @@ namespace ShopWebsite.Data.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int>("TypeCode");
+                    b.Property<string>("Type")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

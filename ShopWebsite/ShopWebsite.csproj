@@ -19,6 +19,22 @@
     <Compile Remove="Data\Migrations\20180518190126_Image.Designer.cs" />
     <Compile Remove="Data\Migrations\20180518224108_SwappedAttributes.cs" />
     <Compile Remove="Data\Migrations\20180518224108_SwappedAttributes.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180519152930_OrdersDbUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180519152930_OrdersDbUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180519153151_OrdersDbUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180519153151_OrdersDbUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180519153212_OrdersDbUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180519153212_OrdersDbUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180519153813_OrdersDbUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180519153813_OrdersDbUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180519153847_OrdersDbUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180519153847_OrdersDbUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180519154305_OrdersDbUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180519154305_OrdersDbUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180519154444_OrdersDbUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180519154444_OrdersDbUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180519154816_OrdersDbUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180519154816_OrdersDbUpdate.Designer.cs" />
   </ItemGroup>
 
 

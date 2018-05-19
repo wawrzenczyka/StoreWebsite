@@ -6,16 +6,3 @@
 
 @await Component.InvokeAsync("ItemDetails", new { Id = Model.Id })
 @await Component.InvokeAsync("OrderForm", new { Id = Model.Id })
-
-@*
-    <div>
-        <form asp-action="ConfirmOrder">
-            <input type="hidden" asp-for="Id" />
-            <input type="submit" value="Confirm" class="btn btn-default" /> |
-            <a asp-action="Index" asp-controller="Products">Back to product list</a>
-        </form>
-    </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }*@

@@ -30,9 +30,9 @@ namespace ShopWebsite.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> Add()
-        //{
-        //    return View();
-        //}
+        public IActionResult Add()
+        {
+            return View();
+        }
     }
 }

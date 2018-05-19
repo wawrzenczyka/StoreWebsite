@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -41,6 +42,14 @@ namespace ShopWebsite.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
         {
+            if (product.ImageFile == null)
+                return BadRequest(new { error = "Invalid image" });
+
+            string ext = Path.GetExtension(product.ImageFile.FileName).ToLower();
+
+            if (ext != ".jpg" && ext != ".tiff" && ext != ".gif" && ext != ".jpeg" && ext != ".png" & ext != ".bmp")
+                return BadRequest(new { error = "Invalid image format" });
+
             if (ModelState.IsValid)
             {
                 bool result = await _productService.AddProductAsync(product);
@@ -118,6 +127,14 @@ namespace ShopWebsite.Controllers
         [HttpPost, ActionName("EditImage")]
         public async Task<IActionResult> EditImageConfirmed(Product product)
         {
+            if (product.ImageFile == null)
+                return BadRequest(new { error = "Invalid image" });
+
+            string ext = Path.GetExtension(product.ImageFile.FileName).ToLower();
+
+            if (ext != ".jpg" && ext != ".tiff" && ext != ".gif" && ext != ".jpeg" && ext != ".png" & ext != ".bmp")
+                return BadRequest(new { error = "Invalid image format" });
+
             bool result = await _productService.EditProductImageAsync(product);
             if (!result)
                 return BadRequest(new { error = "Could not edit image" });
