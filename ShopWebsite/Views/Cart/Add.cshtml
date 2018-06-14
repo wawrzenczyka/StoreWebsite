@@ -1,8 +1,0 @@
-﻿@{
-    ViewData["Title"] = "Add to cart";
-}
-
-<h2></h2>
-
-@await Component.InvokeAsync("ItemDetails", new { Id = Model.Id })
-@await Component.InvokeAsync("OrderForm", new { Id = Model.Id })
