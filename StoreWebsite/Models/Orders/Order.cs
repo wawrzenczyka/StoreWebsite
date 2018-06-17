@@ -35,6 +35,7 @@ namespace ShopWebsite.Models
                 return StatusCode.GetEnumDescription();
             }
         }
+
         public string Description { get; set; }
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
@@ -42,6 +43,8 @@ namespace ShopWebsite.Models
 
     public enum OrderStatus
     {
+        [Description("New")]
+        New,
         [Description("Confirmed")]
         Confirmed,
         [Description("In progress")]

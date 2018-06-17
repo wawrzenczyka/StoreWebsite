@@ -61,7 +61,7 @@ namespace ShopWebsite.Services
             return saveResult == 1;
         }
 
-        public Task<CartItem> CheckIfCartContains(Guid product, Guid user)
+        public Task<CartItem> FindItemAsync(Guid product, Guid user)
         {
             return _context.CartItems
                 .FirstOrDefaultAsync(item => item.ProductId == product && item.UserId == user);
@@ -74,6 +74,16 @@ namespace ShopWebsite.Services
 
             var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1 || saveResult == 0;
+        }
+
+        public async Task ClearCartAsync(Guid userId)
+        {
+            var cart = await GetCartAsync(userId);
+
+            foreach(var cartItem in cart)
+            {
+                bool successful = await RemoveCartItem(cartItem);
+            }
         }
     }
 }

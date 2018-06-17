@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShopWebsite.Models;
 using ShopWebsite.Services;
 using ShopWebsite.Services.Users;
+using StoreWebsite.Models.Orders;
 
 namespace ShopWebsite.Controllers
 {
@@ -44,24 +45,63 @@ namespace ShopWebsite.Controllers
         public async Task<IActionResult> Add(Guid addressId)
         {
             Address address = await _userService.GetAddressAsync(addressId);
-            return View(address);
+
+            Order order = new Order() { Address = address };
+
+            return View(order);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, ActionName("Add")]
-        public async Task<IActionResult> AddConfirmed(Address address)
+        public async Task<IActionResult> AddConfirmed(Order newOrder)
         {
-            //Order order = new Order()
-            //{
-            //    Id = Guid.NewGuid(),
-            //    OrderDate = DateTime.Now,
-            //    Address = address,
-            //    Description = ,
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var userId = Guid.Parse(user.Id);
 
-            //}
+            Order order = new Order()
+            {
+                Id = Guid.NewGuid(),
+                OrderDate = DateTime.Now,
+                Address = newOrder.Address,
+                AddressId = newOrder.AddressId,
+                Description = newOrder.Description,
+                StatusCode = OrderStatus.New,
+                UserId = userId
+            };
 
-            //return View(address);
-            return View();
+            List<OrderDetails> orderDetails = new List<OrderDetails>();
+            var cart = await _cartService.GetCartAsync(userId);
+
+            foreach(var cartItem in cart)
+            {
+                orderDetails.Add(new OrderDetails()
+                {
+                    OrderId = order.Id,
+                    ProductId = cartItem.ProductId,
+                    Quantity = cartItem.Quantity
+                });
+            }
+
+            bool successful = await _orderService.AddOrderAsync(order, orderDetails);
+            if (!successful)
+                return BadRequest(new { error = "Could not add order" });
+
+            await _cartService.ClearCartAsync(userId);
+
+            return RedirectToAction("Orders");
+        }
+
+        public async Task<IActionResult> Orders()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var orders = await _orderService.GetOrderListAsync(Guid.Parse(user.Id));
+
+            OrderListViewModel orderList = new OrderListViewModel()
+            {
+                Orders = orders
+            };
+
+            return View(orderList);
         }
 
         public IActionResult UpdateAddress()
@@ -73,10 +113,22 @@ namespace ShopWebsite.Controllers
         [HttpPost, ActionName("UpdateAddress")]
         public async Task<IActionResult> UpdateAddress(Address address)
         {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            await _userService.UpdateUserAddressAsync(user, address);
+            address.Id = Guid.NewGuid();
 
-            return View("Add", address);
+            ModelState.Clear();
+            bool validationResult = TryValidateModel(address);
+
+            if (validationResult)
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                await _userService.UpdateUserAddressAsync(user, address);
+
+                return View("Add", address);
+            }
+            else
+            {
+                return View(address);
+            }
         }
 
         public IActionResult SetNewAddress()
@@ -88,13 +140,25 @@ namespace ShopWebsite.Controllers
         [HttpPost, ActionName("SetNewAddress")]
         public async Task<IActionResult> SetNewAddress(Address address)
         {
-            bool succedeed = await _userService.AddAddressAsync(address);
-            if (!succedeed)
-            {
-                return BadRequest(new { error = "Could not set address" });
-            }
+            address.Id = Guid.NewGuid();
 
-            return View("Add", address);
+            ModelState.Clear();
+            bool validationResult = TryValidateModel(address);
+
+            if (validationResult)
+            {
+                bool succedeed = await _userService.AddAddressAsync(address);
+                if (!succedeed)
+                {
+                    return BadRequest(new { error = "Could not set address" });
+                }
+
+                return View("Add", address);
+            }
+            else
+            {
+                return View(address);
+            }
         }
     }
 }

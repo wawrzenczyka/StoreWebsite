@@ -1,4 +1,4 @@
-﻿@model ShopWebsite.Models.Address
+﻿@model ShopWebsite.Models.Order
 
 @{
     ViewData["Title"] = "Add";
@@ -10,56 +10,71 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Address.FirstName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Address.FirstName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Address.LastName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Address.LastName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Street)
+            @Html.DisplayNameFor(model => model.Address.Street)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Street)
+            @Html.DisplayFor(model => model.Address.Street)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Building)
+            @Html.DisplayNameFor(model => model.Address.Building)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Building)
+            @Html.DisplayFor(model => model.Address.Building)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Apartment)
+            @Html.DisplayNameFor(model => model.Address.Apartment)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Apartment)
+            @Html.DisplayFor(model => model.Address.Apartment)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PostalCode)
+            @Html.DisplayNameFor(model => model.Address.PostalCode)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PostalCode)
+            @Html.DisplayFor(model => model.Address.PostalCode)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.City)
+            @Html.DisplayNameFor(model => model.Address.City)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.City)
+            @Html.DisplayFor(model => model.Address.City)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Country)
+            @Html.DisplayNameFor(model => model.Address.Country)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Country)
+            @Html.DisplayFor(model => model.Address.Country)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Add" asp-route-addressId="@Model.Id">Confirm</a> |
-    <a asp-action="ChooseAddress">Back</a>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input hidden="hidden" asp-for="AddressId" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Confirm" class="btn btn-default" /> | 
+                <a asp-action="ChooseAddress">Back</a>
+            </div>
+        </form>
+    </div>
 </div>

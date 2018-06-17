@@ -13,7 +13,8 @@ namespace ShopWebsite.Services
         Task<IEnumerable<CartItem>> GetCartAsync(Guid userId);
         Task<CartItem> GetCartItemAsync(Guid cartItemId);
         Task<bool> RemoveCartItem(CartItem cartItem);
-        Task<CartItem> CheckIfCartContains(Guid product, Guid user);
+        Task<CartItem> FindItemAsync(Guid product, Guid user);
         Task<bool> UpdateCartItem(CartItem cartItem);
+        Task ClearCartAsync(Guid userId);
     }
 }

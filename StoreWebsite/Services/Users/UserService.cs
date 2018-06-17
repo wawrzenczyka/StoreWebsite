@@ -26,7 +26,6 @@ namespace ShopWebsite.Services.Users
 
         public async Task<bool> AddAddressAsync(Address address)
         {
-            address.Id = Guid.NewGuid();
             await _context.AddAsync(address);
 
             var saveResult = await _context.SaveChangesAsync();
@@ -35,18 +34,20 @@ namespace ShopWebsite.Services.Users
 
         public async Task<bool> UpdateUserAddressAsync(ApplicationUser user, Address address)
         {
+            int removals = 0;
             var modifiedUser = await _context.Users.FirstAsync(u => u.Id == user.Id);
 
             if (modifiedUser.AddressId.HasValue)
             {
                 _context.Addresses.Remove(await GetAddressAsync(modifiedUser.AddressId.Value));
+                removals++;
             }
 
             address.Id = Guid.NewGuid();
             modifiedUser.Address = address;
 
             var saveResult = await _context.SaveChangesAsync();
-            return saveResult == 1 || saveResult == 2 || saveResult == 3;
+            return saveResult == 2 + removals;
         }
     }
 }

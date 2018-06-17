@@ -53,7 +53,7 @@ namespace ShopWebsite.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             cartItem.UserId = Guid.Parse(user.Id);
 
-            var oldCartItem = await _cartService.CheckIfCartContains(cartItem.ProductId, cartItem.UserId);
+            var oldCartItem = await _cartService.FindItemAsync(cartItem.ProductId, cartItem.UserId);
             if (oldCartItem != null)
             {
                 oldCartItem.Quantity += cartItem.Quantity;
