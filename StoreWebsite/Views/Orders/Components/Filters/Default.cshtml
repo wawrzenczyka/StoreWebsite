@@ -1,0 +1,29 @@
+﻿@model StoreWebsite.Models.Orders.OrderFilters
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Filter">
+            <div class="form-group">
+                <label class="control-label">Filter by status</label>
+                <select asp-for="StatusCode" asp-items="Html.GetEnumSelectList<OrderStatus>()" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Begin date</label>
+                <input asp-for="BeginDate"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">End date</label>
+                <input asp-for="EndDate"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Apply filters" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

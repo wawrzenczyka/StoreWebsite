@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ShopWebsite.Data;
-using ShopWebsite.Models;
-using ShopWebsite.Services;
+using StoreWebsite.Data;
+using StoreWebsite.Models;
+using StoreWebsite.Services;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using ShopWebsite.Services.Users;
+using StoreWebsite.Services.Users;
 
-namespace ShopWebsite
+namespace StoreWebsite
 {
     public class Startup
     {

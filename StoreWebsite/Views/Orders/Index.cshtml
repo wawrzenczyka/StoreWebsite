@@ -1,0 +1,56 @@
+﻿@model StoreWebsite.Models.Orders.OrderListViewModel
+@using StoreWebsite.Models.Orders
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2>Your orders</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().StatusCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().OrderShippedDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-orderId="@item.Id">@item.Id</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)$
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderShippedDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*@await Component.InvokeAsync("Filters", new { Filter = new OrderFilters() {
+    StatusCode = OrderStatus.New
+} })*@

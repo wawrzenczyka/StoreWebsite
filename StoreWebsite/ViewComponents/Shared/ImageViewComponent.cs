@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopWebsite.Models.Products;
+using StoreWebsite.Models.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.ViewComponents.Shared
+namespace StoreWebsite.ViewComponents.Shared
 {
     public class ImageViewComponent: ViewComponent
     {

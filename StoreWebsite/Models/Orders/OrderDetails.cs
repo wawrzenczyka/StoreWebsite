@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.Models
+namespace StoreWebsite.Models
 {
     public class OrderDetails
     {
@@ -18,5 +18,14 @@ namespace ShopWebsite.Models
         [Required]
         [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
+
+        [Display(Name = "Total price")]
+        public decimal TotalPrice
+        {
+            get
+            {
+                return Product.Price * Quantity;
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ShopWebsite.Controllers;
+using StoreWebsite.Controllers;
 
 namespace Microsoft.AspNetCore.Mvc
 {

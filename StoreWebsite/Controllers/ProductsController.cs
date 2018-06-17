@@ -5,10 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopWebsite.Models;
-using ShopWebsite.Services;
+using StoreWebsite.Models;
+using StoreWebsite.Services;
 
-namespace ShopWebsite.Controllers
+namespace StoreWebsite.Controllers
 {
     public class ProductsController : Controller
     {

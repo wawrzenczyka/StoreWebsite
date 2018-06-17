@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShopWebsite.Data;
-using ShopWebsite.Models;
+using StoreWebsite.Data;
+using StoreWebsite.Models;
 using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.Services.Users
+namespace StoreWebsite.Services.Users
 {
     public class UserService: IUserService
     {

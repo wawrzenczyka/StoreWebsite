@@ -36,7 +36,7 @@
                     <img src="@imgSrc" height="100" />
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.Name)
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductId">@item.Product.Name</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.Price)$

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ShopWebsite.Data.Migrations
+namespace StoreWebsite.Data.Migrations
 {
     public partial class Image : Migration
     {

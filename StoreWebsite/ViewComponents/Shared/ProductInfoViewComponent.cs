@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopWebsite.Models;
-using ShopWebsite.Services;
+using StoreWebsite.Models;
+using StoreWebsite.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.ViewComponents.Shared
+namespace StoreWebsite.ViewComponents.Shared
 {
     public class ProductInfoViewComponent : ViewComponent
     {

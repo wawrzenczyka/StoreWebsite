@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.EntityFrameworkCore;
-using ShopWebsite.Data;
-using ShopWebsite.Models;
+using StoreWebsite.Data;
+using StoreWebsite.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.Services
+namespace StoreWebsite.Services
 {
     public class CartService: ICartService
     {

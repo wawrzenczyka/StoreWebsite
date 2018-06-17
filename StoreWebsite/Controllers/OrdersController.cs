@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ShopWebsite.Models;
-using ShopWebsite.Services;
-using ShopWebsite.Services.Users;
+using StoreWebsite.Models;
+using StoreWebsite.Services;
+using StoreWebsite.Services.Users;
 using StoreWebsite.Models.Orders;
 
-namespace ShopWebsite.Controllers
+namespace StoreWebsite.Controllers
 {
     [Authorize]
     public class OrdersController : Controller
@@ -31,9 +31,17 @@ namespace ShopWebsite.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var orders = await _orderService.GetOrderListAsync(Guid.Parse(user.Id));
+
+            OrderListViewModel orderList = new OrderListViewModel()
+            {
+                Orders = orders
+            };
+
+            return View(orderList);
         }
 
         public async Task<IActionResult> ChooseAddress()
@@ -88,21 +96,66 @@ namespace ShopWebsite.Controllers
 
             await _cartService.ClearCartAsync(userId);
 
-            return RedirectToAction("Orders");
+            return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Orders()
+        public async Task<IActionResult> Details(Guid orderId)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var orders = await _orderService.GetOrderListAsync(Guid.Parse(user.Id));
+            Order order = await _orderService.GetOrderAsync(orderId);
 
-            OrderListViewModel orderList = new OrderListViewModel()
+            if (Guid.Parse(user.Id) != order.UserId)
             {
-                Orders = orders
-            };
+                return BadRequest(new { error = "No permissions to view other users' orders" });
+            }
 
-            return View(orderList);
+            return View(order);
         }
+
+        public async Task<IActionResult> Cancel(Guid orderId)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            Order order = await _orderService.GetOrderAsync(orderId);
+
+            if (Guid.Parse(user.Id) != order.UserId)
+            {
+                return BadRequest(new { error = "No permissions to view other users' orders" });
+            }
+
+            return View(order);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, ActionName("Cancel")]
+        public async Task<IActionResult> CancelConfirmed(Order cancelledOrder)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            Order order = await _orderService.GetOrderAsync(cancelledOrder.Id);
+
+            if (order.StatusCode != OrderStatus.New)
+            {
+                return BadRequest(new { error = "Cannot cancel order" });
+            }
+
+            if (Guid.Parse(user.Id) != order.UserId)
+            {
+                return BadRequest(new { error = "No permissions to view other users' orders" });
+            }
+
+            bool successful = await _orderService.CancelOrderAsync(order);
+            if (!successful)
+            {
+                return BadRequest(new { error = "Cannot cancel order" });
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //public async Task<IActionResult> Filter(OrderFilters orderFilters)
+        //{
+        //    var x = DateTime.MinValue;
+        //    return View(orderFilters);
+        //}
 
         public IActionResult UpdateAddress()
         {

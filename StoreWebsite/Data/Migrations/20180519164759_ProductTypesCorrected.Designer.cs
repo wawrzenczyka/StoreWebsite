@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using ShopWebsite.Data;
-using ShopWebsite.Models;
+using StoreWebsite.Data;
+using StoreWebsite.Models;
 using System;
 
-namespace ShopWebsite.Data.Migrations
+namespace StoreWebsite.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20180519164759_ProductTypesCorrected")]

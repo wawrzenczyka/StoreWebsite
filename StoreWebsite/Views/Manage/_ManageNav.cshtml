@@ -1,4 +1,4 @@
-﻿@using ShopWebsite.Views.Manage
+﻿@using StoreWebsite.Views.Manage
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

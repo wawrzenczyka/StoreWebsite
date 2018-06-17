@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ShopWebsite.Models;
+using StoreWebsite.Models;
 
-namespace ShopWebsite
+namespace StoreWebsite
 {
     public static class SeedData
     {

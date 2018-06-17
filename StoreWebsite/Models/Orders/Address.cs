@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ShopWebsite.Models
+namespace StoreWebsite.Models
 {
     public class Address
     {

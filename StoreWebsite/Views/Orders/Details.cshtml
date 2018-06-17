@@ -1,0 +1,126 @@
+﻿@model StoreWebsite.Models.Order
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)$
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StatusCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderShippedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderShippedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+
+@if (Model.StatusCode == OrderStatus.New)
+{
+    <p>
+        <a asp-action="Cancel" asp-route-orderId="@Model.Id">Cancel order</a>
+    </p>
+}
+
+<br/>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().Product.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().TotalPrice)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderDetails)
+        {
+            <tr>
+                <td>
+                    @{
+                        var base64 = Convert.ToBase64String(item.Product.Image.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+                    <img src="@imgSrc" height="100" />
+                </td>
+                <td>
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductId">@item.Product.Name</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)$
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)$
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td />
+            <td />
+            <td />
+            <td>
+                <h4>
+                    @Html.DisplayNameFor(model => model.TotalPrice):
+                </h4>
+            </td>
+            <td>
+                <h4> @Html.DisplayFor(model => model.TotalPrice)$</h4>
+            </td>
+            <td />
+        </tr>
+    </tfoot>
+</table>
+
+@await Component.InvokeAsync("AddressInfo", new { addressId = Model.AddressId })
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

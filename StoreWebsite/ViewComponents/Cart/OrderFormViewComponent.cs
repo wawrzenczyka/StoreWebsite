@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopWebsite.Models;
-using ShopWebsite.Services;
+using StoreWebsite.Models;
+using StoreWebsite.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.ViewComponents
+namespace StoreWebsite.ViewComponents
 {
     public class OrderFormViewComponent: ViewComponent
     {
-        private IProductService _productService;
+        private readonly IProductService _productService;
 
         public OrderFormViewComponent(IProductService productService)
         {

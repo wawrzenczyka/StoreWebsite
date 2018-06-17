@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ShopWebsite.Models;
-using ShopWebsite.Models.AccountViewModels;
-using ShopWebsite.Services;
+using StoreWebsite.Models;
+using StoreWebsite.Models.AccountViewModels;
+using StoreWebsite.Services;
 
-namespace ShopWebsite.Controllers
+namespace StoreWebsite.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]

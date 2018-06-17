@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.Models
+namespace StoreWebsite.Models
 {
     public class Order
     {
+        [Display(Name = "Order number")]
         public Guid Id { get; set; }
 
         [Required]
@@ -25,6 +26,7 @@ namespace ShopWebsite.Models
 
         public virtual Address Address { get; set; }
 
+        [Display(Name = "Status")]
         public OrderStatus StatusCode { get; set; }
 
         [Display(Name = "Postal code")]
@@ -36,7 +38,17 @@ namespace ShopWebsite.Models
             }
         }
 
+        [Display(Name = "Message")]
         public string Description { get; set; }
+
+        [Display(Name = "Total price")]
+        public decimal TotalPrice
+        {
+            get
+            {
+                return OrderDetails == null ? 0 : OrderDetails.Sum(od => od.Product.Price * od.Quantity);
+            }
+        }
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
@@ -47,11 +59,13 @@ namespace ShopWebsite.Models
         New,
         [Description("Confirmed")]
         Confirmed,
-        [Description("In progress")]
+        [Description("In progress"), Display(Name = "In progress")]
         InProgress,
         [Description("Shipped")]
         Shipped,
-        [Description("Delivered")]
-        Delivered
+        [Description("Completed")]
+        Completed,
+        [Description("Cancelled")]
+        Cancelled
     }
 }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ShopWebsite.Data;
-using ShopWebsite.Models;
+using StoreWebsite.Data;
+using StoreWebsite.Models;
 using StoreWebsite.Models.Orders;
 
-namespace ShopWebsite.Services
+namespace StoreWebsite.Services
 {
     public class OrderService : IOrderService
     {
@@ -35,8 +35,30 @@ namespace ShopWebsite.Services
         public async Task<IEnumerable<Order>> GetOrderListAsync(Guid userId)
         {
             return await _context.Orders
-                .Where(order => order.UserId == userId)
+                .Where(order => order.UserId == userId
+                    && (order.StatusCode != OrderStatus.Cancelled && order.StatusCode != OrderStatus.Completed))
+                .Include(order => order.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                .OrderByDescending(order => order.OrderDate)
                 .ToArrayAsync();
+        }
+
+        public Task<Order> GetOrderAsync(Guid orderId)
+        {
+            return _context.Orders
+                .Where(order => order.Id == orderId)
+                .Include(order => order.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.Image)
+                .FirstAsync();
+        }
+
+        public async Task<bool> CancelOrderAsync(Order order)
+        {
+            order.StatusCode = OrderStatus.Cancelled;
+
+            int saveResult = await _context.SaveChangesAsync();
+            return saveResult == 1;
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using ShopWebsite.Models;
+﻿using StoreWebsite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.Services.Users
+namespace StoreWebsite.Services.Users
 {
     public interface IUserService
     {

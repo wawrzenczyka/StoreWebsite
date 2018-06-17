@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.Models.ManageViewModels
+namespace StoreWebsite.Models.ManageViewModels
 {
     public class ShowRecoveryCodesViewModel
     {

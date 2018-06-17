@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using ShopWebsite.Data;
+using StoreWebsite.Data;
 using System;
 
-namespace ShopWebsite.Data.Migrations
+namespace StoreWebsite.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20180508144650_CartItems")]

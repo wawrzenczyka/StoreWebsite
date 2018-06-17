@@ -1,4 +1,4 @@
-﻿namespace ShopWebsite
+﻿namespace StoreWebsite
 {
     public static class Constants
     {

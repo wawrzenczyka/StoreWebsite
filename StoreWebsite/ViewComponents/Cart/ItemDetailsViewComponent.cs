@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopWebsite.Services;
+using StoreWebsite.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.ViewComponents
+namespace StoreWebsite.ViewComponents
 {
     public class ItemDetailsViewComponent: ViewComponent
     {
-        private IProductService _productService;
+        private readonly IProductService _productService;
 
         public ItemDetailsViewComponent(IProductService productService)
         {

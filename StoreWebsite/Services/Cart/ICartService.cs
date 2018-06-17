@@ -1,11 +1,11 @@
 ﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using ShopWebsite.Models;
+using StoreWebsite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebsite.Services
+namespace StoreWebsite.Services
 {
     public interface ICartService
     {

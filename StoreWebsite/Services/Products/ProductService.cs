@@ -6,11 +6,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ShopWebsite.Data;
-using ShopWebsite.Models;
-using ShopWebsite.Models.Products;
+using StoreWebsite.Data;
+using StoreWebsite.Models;
+using StoreWebsite.Models.Products;
 
-namespace ShopWebsite.Services
+namespace StoreWebsite.Services
 {
     public class ProductService : IProductService
     {
