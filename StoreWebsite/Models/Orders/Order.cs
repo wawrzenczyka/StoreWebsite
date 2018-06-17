@@ -55,6 +55,8 @@ namespace StoreWebsite.Models
 
     public enum OrderStatus
     {
+        [Description(""), Display(Name = "")]
+        None,
         [Description("New")]
         New,
         [Description("Confirmed")]
@@ -66,6 +68,8 @@ namespace StoreWebsite.Models
         [Description("Completed")]
         Completed,
         [Description("Cancelled")]
-        Cancelled
+        Cancelled,
+        [Description("All")]
+        All
     }
 }

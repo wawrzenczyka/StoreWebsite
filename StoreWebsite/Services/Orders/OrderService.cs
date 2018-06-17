@@ -32,11 +32,30 @@ namespace StoreWebsite.Services
             return saveResult == 1 + orderDetails.Count;
         }
 
-        public async Task<IEnumerable<Order>> GetOrderListAsync(Guid userId)
+        public async Task<IEnumerable<Order>> GetOrderListAsync(Guid userId, OrderFilters filters)
         {
+            if (filters.EndDate == DateTime.MinValue)
+                filters.EndDate = DateTime.MaxValue;
+
+            Func<OrderStatus, bool> match;
+
+            if (filters.StatusCode == OrderStatus.None)
+            {
+                match = (code) => code != OrderStatus.Cancelled && code != OrderStatus.Completed && code != OrderStatus.None
+                 && code != OrderStatus.All;
+            }
+            else if (filters.StatusCode == OrderStatus.All)
+            {
+                match = (_) => true;
+            }
+            else
+            {
+                match = (code) => code == filters.StatusCode;
+            }
+
             return await _context.Orders
-                .Where(order => order.UserId == userId
-                    && (order.StatusCode != OrderStatus.Cancelled && order.StatusCode != OrderStatus.Completed))
+                .Where(order => order.UserId == userId && match(order.StatusCode)
+                    && order.OrderDate >= filters.BeginDate && order.OrderDate <= filters.EndDate)
                 .Include(order => order.OrderDetails)
                     .ThenInclude(od => od.Product)
                 .OrderByDescending(order => order.OrderDate)

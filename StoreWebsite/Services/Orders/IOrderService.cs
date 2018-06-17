@@ -11,7 +11,7 @@ namespace StoreWebsite.Services
     public interface IOrderService
     {
         Task<bool> AddOrderAsync(Order order, List<OrderDetails> orderDetails);
-        Task<IEnumerable<Order>> GetOrderListAsync(Guid userId);
+        Task<IEnumerable<Order>> GetOrderListAsync(Guid userId, OrderFilters filters);
         Task<Order> GetOrderAsync(Guid orderId);
         Task<bool> CancelOrderAsync(Order order);
     }

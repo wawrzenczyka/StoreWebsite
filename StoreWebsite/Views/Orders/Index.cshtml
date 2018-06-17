@@ -51,6 +51,4 @@
     </tbody>
 </table>
 
-@*@await Component.InvokeAsync("Filters", new { Filter = new OrderFilters() {
-    StatusCode = OrderStatus.New
-} })*@
+@await Component.InvokeAsync("Filters", new { Filter = new OrderFilters() } )

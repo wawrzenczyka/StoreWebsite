@@ -34,7 +34,7 @@ namespace StoreWebsite.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var orders = await _orderService.GetOrderListAsync(Guid.Parse(user.Id));
+            var orders = await _orderService.GetOrderListAsync(Guid.Parse(user.Id), new OrderFilters() { StatusCode = OrderStatus.None });
 
             OrderListViewModel orderList = new OrderListViewModel()
             {
@@ -151,11 +151,18 @@ namespace StoreWebsite.Controllers
             return RedirectToAction("Index");
         }
 
-        //public async Task<IActionResult> Filter(OrderFilters orderFilters)
-        //{
-        //    var x = DateTime.MinValue;
-        //    return View(orderFilters);
-        //}
+        public async Task<IActionResult> Filter(OrderFilters orderFilters)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var orders = await _orderService.GetOrderListAsync(Guid.Parse(user.Id), orderFilters);
+
+            OrderListViewModel orderList = new OrderListViewModel()
+            {
+                Orders = orders
+            };
+
+            return View("Index", orderList);
+        }
 
         public IActionResult UpdateAddress()
         {
