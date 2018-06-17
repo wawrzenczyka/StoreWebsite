@@ -37,17 +37,16 @@ namespace ShopWebsite.Services.Users
         {
             var modifiedUser = await _context.Users.FirstAsync(u => u.Id == user.Id);
 
-            if (modifiedUser.AddressId != null)
+            if (modifiedUser.AddressId.HasValue)
             {
                 _context.Addresses.Remove(await GetAddressAsync(modifiedUser.AddressId.Value));
             }
 
             address.Id = Guid.NewGuid();
-            await _context.AddAsync(address);
-            modifiedUser.AddressId = address.Id;
+            modifiedUser.Address = address;
 
             var saveResult = await _context.SaveChangesAsync();
-            return saveResult == 0 || saveResult == 1 || saveResult == 2 || saveResult == 3;
+            return saveResult == 1 || saveResult == 2 || saveResult == 3;
         }
     }
 }

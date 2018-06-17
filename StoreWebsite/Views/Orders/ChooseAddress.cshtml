@@ -5,7 +5,7 @@
 }
 
 <h2>Choose address to use</h2>
-@if (Model.AddressId != null)
+@if (Model.AddressId.HasValue)
 {
     <a asp-action="Add" asp-route-addressId="@Model.AddressId.Value">Use my address</a><br />
 }

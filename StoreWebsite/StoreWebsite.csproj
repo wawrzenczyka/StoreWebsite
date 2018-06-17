@@ -35,6 +35,8 @@
     <Compile Remove="Data\Migrations\20180519154444_OrdersDbUpdate.Designer.cs" />
     <Compile Remove="Data\Migrations\20180519154816_OrdersDbUpdate.cs" />
     <Compile Remove="Data\Migrations\20180519154816_OrdersDbUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180617090055_RemoveAddressFK.cs" />
+    <Compile Remove="Data\Migrations\20180617090055_RemoveAddressFK.Designer.cs" />
   </ItemGroup>
 
 

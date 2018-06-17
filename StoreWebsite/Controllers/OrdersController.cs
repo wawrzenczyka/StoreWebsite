@@ -38,7 +38,6 @@ namespace ShopWebsite.Controllers
         public async Task<IActionResult> ChooseAddress()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-
             return View(user);
         }
 

@@ -23,8 +23,5 @@ namespace ShopWebsite.Models
         public string City { get; set; }
         [Required]
         public string Country { get; set; }
-
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }
