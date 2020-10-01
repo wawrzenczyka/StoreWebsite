@@ -8,6 +8,7 @@ namespace StoreWebsite.Models
 {
     public class CartItem
     {
+        [Key]
         public Guid Id { get; set; }
 
         [Required]
